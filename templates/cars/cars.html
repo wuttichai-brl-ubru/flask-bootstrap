@@ -1,7 +1,7 @@
-{% extends "layout.html" %}
+{% extends 'layout.html' %}
 
 {% block title %}
-  {{ title }}
+  {{title}}
 {% endblock %}
 
 {% block content %}
@@ -9,34 +9,51 @@
     <h1>{{title}}</h1>
     <hr>
     <div class="row">
-      <div class="col"></div>
       <div class="col">
-        <a href="#" class="btn btn-outline-success float-end mb-3 ">
+        <form method="post">
+          <div class="input-group mb-3">
+            <input name="brand" type="text" class="form-control" placeholder="Search by car's brand">
+            <button class="btn btn-outline-success" type="submit" >
+              <i class="bi bi-search"></i>
+            </button>
+          </div>
+        </form>
+      </div>
+      <div class="col">
+        <a href="{{url_for('new_car')}}" class="btn btn-outline-success float-end">
           <i class="bi bi-car-front"></i> Add New Car
         </a>
       </div>
     </div>
     <table class="table table-hover">
-  <thead>
-    <tr>
-      <th scope="col">#</th>
-      <th scope="col">Brand</th>
-      <th scope="col">Model</th>
-      <th scope="col">Action</th>
-    </tr>
-  </thead>
-  <tbody>
-      {% for car in cars %}
-      <tr>
-        <th scope="row">{{loop.index}}</th>
-        <td>{{car.brand}}</td>
-        <td>{{car.model}}</td>
-        <td>
-
-        </td>
-      </tr>
-      {% endfor %}
-  </tbody>
-</table>
+      <thead>
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">Brand</th>
+          <th scope="col">Model</th>
+          <th scope="col">Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for car in cars %}
+          <tr>
+            <th scope="row">{{loop.index}}</th>
+            <td>{{car.brand}}</td>
+            <td>{{car.model}}</td>
+            <td>
+              <a href="{{url_for('edit_car', id=car.id)}}" class="btn btn-outline-success btn-sm">
+                <i class="bi bi-pencil-square"></i>                
+              </a>
+              <a href="{{url_for('delete_car', id=car.id)}}" class="btn btn-outline-danger btn-sm">
+                <i class="bi bi-x-circle"></i>                
+              </a>
+            </td>
+          </tr>
+        {% endfor %}
+        
+        
+        
+      </tbody>
+    </table>
   </div>
 {% endblock %}
